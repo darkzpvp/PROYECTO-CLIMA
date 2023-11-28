@@ -8,7 +8,7 @@ const errorContainer = document.querySelector("#errorContainer");
 // Evento submit de formulario
 formulario.addEventListener("submit", (event) => {
   event.preventDefault();
-
+  
   const ciudad = inputCiudad.value; 
   const pais = selectPais.value;
 
@@ -17,6 +17,7 @@ formulario.addEventListener("submit", (event) => {
   } else {
     imprimir(ciudad, pais);
     quitarError();
+    inputCiudad.value = "";
   }
 });
 
