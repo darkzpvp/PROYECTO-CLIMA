@@ -5,7 +5,19 @@ html {
     
 }
 
+.errorhijo{
 
+  background-color: red;
+  color: white;
+  padding: 2rem 4rem;
+  margin-top: 2rem;
+  text-align: center;
+font-size: 1.2rem;
+font-weight: bold;
+text-transform: uppercase;
+font-family: Arial, Helvetica, sans-serif;
+border-radius: .25rem;
+}
 .sk-fading-circle {
     margin: 100px auto;
     width: 40px;
@@ -32,6 +44,7 @@ html {
     font-size: 4rem;
     font-weight: 700;
   }
+
   .sk-fading-circle .sk-circle:before {
     content: '';
     display: block;
