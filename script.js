@@ -8,8 +8,8 @@ const errorContainer = document.querySelector("#errorContainer");
 // Evento submit de formulario
 formulario.addEventListener("submit", (event) => {
   event.preventDefault();
-  
-  const ciudad = inputCiudad.value; 
+
+  const ciudad = inputCiudad.value;
   const pais = selectPais.value;
 
   if (ciudad.trim() === "" || pais === "") {
@@ -22,7 +22,6 @@ formulario.addEventListener("submit", (event) => {
 });
 
 function añadirError() {
- 
   const existingError = document.querySelector(".errorhijo");
   if (!existingError) {
     const error = document.createElement("p");
@@ -36,7 +35,6 @@ function añadirError() {
 }
 
 function quitarError() {
-
   const existingError = document.querySelector(".errorhijo");
   if (existingError) {
     existingError.classList.remove("errorhijo");
@@ -61,30 +59,27 @@ function imprimir(ciudad, pais) {
       }
       return response.json();
     })
-    .then((data) => {
-      //Definicion de variables JSON
-      const temp = data.main.temp;
-      const temp_min = data.main.temp_min;
-      const temp_max = data.main.temp_max;
+    .then(({ main }) => {
+      // Destructurar el objeto main
+      const { temp, temp_min, temp_max } = main;
 
-      //Pasar a Celsius y añadir dos decimales
-
+      // Pasar a Celsius y añadir dos decimales
       const temp_resultado = Celsiusyredondeo(temp);
       const temp_min_resultado = Celsiusyredondeo(temp_min);
       const temp_max_resultado = Celsiusyredondeo(temp_max);
 
-      //Crear DIV únicamente para "temp", ya que este tiene que ser más grande
+      // Crear DIV únicamente para "temp", ya que este tiene que ser más grande
       const temperatura = document.createElement("div");
       temperatura.classList.add("temperatura");
       temperatura.textContent = temp_resultado;
 
-      //Crear elemento DIV para resto de elementos para cambiar color de texto, fuente, etc.
+      // Crear elemento DIV para resto de elementos para cambiar color de texto, fuente, etc.
       const elemento = document.createElement("div");
       elemento.classList.add("contenedor");
 
-      //Formateo la etiqueta resultado para que no aparezca nada
+      // Formateo la etiqueta resultado para que no aparezca nada
       resultado.textContent = "";
-      //Aquí imprimimos temperatura, temperatura mínima y temperatura máxima
+      // Aquí imprimimos temperatura, temperatura mínima y temperatura máxima
       elemento.innerHTML = `Clima en ${ciudad}, ${pais}:<br>
         ${temperatura.outerHTML}<br>
         Temperatura mínima: ${temp_min_resultado}<br>
@@ -93,5 +88,8 @@ function imprimir(ciudad, pais) {
 
       resultado.appendChild(elemento);
     })
-   //(Bloque catch opcional)
+    .catch(() => {
+      // Manejar errores aquí si es necesario
+      añadirError();
+    });
 }
